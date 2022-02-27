@@ -67,29 +67,70 @@ public final class LinkedBag<T> implements BagInterface<T>
 	{
 		return numberOfEntries;
 	} // end getCurrentSize
-   
-// STUBS:
 
 	/** Removes one unspecified entry from this bag, if possible.
        @return  Either the removed entry, if the removal
                 was successful, or null. */
 	public T remove()
    {
-      return null; // STUB
+       T result = null;
+    if (firstNode != null)
+    {
+         result = firstNode.getData();
+         firstNode = firstNode.getNextNode(); // Remove first node from chain
+         numberOfEntries--;
+     } // end if
+      
+     return result;
    } // end remove
    
-	/** Removes one occurrence of a given entry from this bag.
-       @param anEntry  The entry to be removed.
-       @return  True if the removal was successful, or false otherwise. */
+   /** Removes one occurrence of a given entry from this bag, if possible.
+   @param anEntry  The entry to be removed.
+   @return  True if the removal was successful, or false otherwise. */
    public boolean remove(T anEntry)
    {
-      return false; // STUB
-   } // end remove
+     boolean result = false;
+     Node nodeN = getReferenceTo(anEntry);
+     
+     if (nodeN != null)
+      {
+        // Replace located entry with entry in first node
+        nodeN.setData(firstNode.getData()); 
+        // Remove first node
+        firstNode = firstNode.getNextNode(); 
+        numberOfEntries--;
+        
+        result = true;
+      } // end if
+ 
+     return result;
+    } // end remove
 	
-	/** Removes all entries from this bag. */
+	/** Locates a given entry within this bag.
+         Returns a reference to the node containing the 
+         entry, if located, or null otherwise.*/ 
+    private Node getReferenceTo(T anEntry)
+    {
+        boolean found = false;
+        Node currentNode = firstNode;
+        while (!found && (currentNode != null))
+        {
+            if (anEntry.equals(currentNode.getData()))
+                found = true;
+            else
+                currentNode = currentNode.getNextNode();
+        } // end while
+                 
+        return currentNode;
+    } // end getReferenceTo
+
+    /** Removes all entries from this bag. */
 	public void clear()
    {
-      // STUB
+     while(!isEmpty())
+     {
+        remove();
+     }
    } // end clear
 	
 	/** Counts the number of times a given entry appears in this bag.
@@ -97,19 +138,22 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  The number of times anEntry appears in the bag. */
 	public int getFrequencyOf(T anEntry)
    {
+       int frequency = 0;
+
       int counter = 0;
-
-      T[] array = this.toArray();
-
-      for(int i = 0; i < array.length; i++)
+      Node currentNode = firstNode;
+      while((counter < numberOfEntries) && (currentNode != null))
       {
-         if(array[i] == anEntry)
-         {
-            counter++;
-         }
-      }
+          if(anEntry.equals(currentNode.getData()))
+          {
+              frequency++;
+          } // end if
 
-      return counter; // STUB
+          counter++;
+          currentNode = currentNode.getNextNode();
+      } // end while
+
+      return frequency;
    } // end getFrequencyOf
 	
 	/** Tests whether this bag contains a given entry.
@@ -117,7 +161,21 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  True if the bag contains anEntry, or false otherwise. */
 	public boolean contains(T anEntry)
    {
-      return false; // STUB
+      boolean found = false;
+      Node currentNode = firstNode;
+
+      while(!found && (currentNode != null))
+      {
+          if(anEntry.equals(currentNode.getData()))
+          {
+              found = true;
+          }
+          else
+          {
+              currentNode = currentNode.getNextNode();
+          }
+      }// end while
+      return found;
    } // end contains
 
    public BagInterface<T> union(BagInterface<T> bag2)
@@ -196,8 +254,26 @@ public final class LinkedBag<T> implements BagInterface<T>
 			data = dataPortion;
 			next = nextNode;	
 		} // end constructor
-	} // end Node
-} // end LinkedBag1
 
+		private T getData()
+		{
+		    return data;
+		} // end getData
 
+		private void setData(T newData)
+		{
+		    data = newData;
+		} // end setData
 
+		private Node getNextNode()
+		{
+		    return next;
+		} // end getNextNode
+
+		private void setNextNode(Node nextNode)
+		{
+		    next = nextNode;
+		} // end setNextNode
+
+  	  } // end Node
+} // end LinkedBag
