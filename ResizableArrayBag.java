@@ -260,7 +260,34 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
 
    public BagInterface<T> intersection(BagInterface<T> bag2)
    {
-       ResizableArrayBag<T> result = new ResizableArrayBag<T>();
+       ResizableArrayBag<T> result = new ResizableArrayBag<>();
+       T[] copy = bag2.toArray();
+       ResizableArrayBag<T> copied = new ResizableArrayBag<>(copy); //Make bag array and passed in bag2 same object type
+       ResizableArrayBag<T> bagCopied = new ResizableArrayBag<>(bag);
+       int freq1;
+       int freq2;
+       for(int i = 0; i < bag.length;i++)
+       {
+          freq1= bagCopied.getFrequencyOf(bag[i]); // get num of occurrences of current item in bag that calls function
+           freq2= copied.getFrequencyOf(bag[i]); // get num of occurences of current item in bag that is passed in
+          if(freq2 > 0) // ensure item is in both bags requiring it to be added to result
+          {
+             if(freq1 > freq2) // if 2nd bag has less occurences then add item freq2 times to result
+             {
+               for(int j = 0; j<freq2; j++)
+               {
+                  result.add(bag[i]);
+               }
+             }
+             else // if freq1 is <= to freq2 then add item to result that many times
+             {
+               for(int j = 0; j<freq1; j++)
+               {
+                  result.add(bag[i]);
+               }
+             }
+          }
+       }
        return result;
    }
 } // end ResizableArrayBag
