@@ -229,15 +229,33 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
     T[] copy = bag2.toArray();
     for(int i = 0; i < copy.length;i++)
     {
-        result.add(copy[i]);
+        result.add(copy[i]); // Add whatever elements exist in bag2 to result bag
     }
-       return result;
+       return result; // return the result since duplicates and order do not matter
    }
 
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
        ResizableArrayBag<T> result = new ResizableArrayBag<T>();
-       return result;
+	T[] copy = bag2.toArray();
+	ResizableArrayBag<T> copied = new ResizableArrayBag<>(copy); // Make bag array and bag2 same object type
+	ResizableArrayBag<T> bagCopied = new ResizableArrayBag<>(bag);
+	for(int i = 0; i< bag.length;i++)
+	{
+	  if(bag2.getFrequencyOf(bag[i]) == 0) // if 2nd bag doesn't have item then add it to result
+		{
+			result.add(bag[i]);
+		} 
+	  else if(bagCopied.getFrequencyOf(bag[i]) > copied.getFrequencyOf(copy[i])) // if num of duplicates in 1st > 2nd then add the item difference times to result
+		{
+			int diff = bagCopied.getFrequencyOf(bag[i]) - copied.getFrequencyOf(copy[i]); // calculate the difference
+			for(int j =0; j < diff; j++) // loop so that the item is added to result correct amount of times
+			{
+				result.add(bag[i]);
+			}
+		}
+	}
+	return result;
    }
 
    public BagInterface<T> intersection(BagInterface<T> bag2)
