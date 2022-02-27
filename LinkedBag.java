@@ -97,7 +97,19 @@ public final class LinkedBag<T> implements BagInterface<T>
 		 @return  The number of times anEntry appears in the bag. */
 	public int getFrequencyOf(T anEntry)
    {
-      return 0; // STUB
+      int counter = 0;
+
+      T[] array = this.toArray();
+
+      for(int i = 0; i < array.length; i++)
+      {
+         if(array[i] == anEntry)
+         {
+            counter++;
+         }
+      }
+
+      return counter; // STUB
    } // end getFrequencyOf
 	
 	/** Tests whether this bag contains a given entry.
@@ -110,23 +122,63 @@ public final class LinkedBag<T> implements BagInterface<T>
 
    public BagInterface<T> union(BagInterface<T> bag2)
    {
-       LinkedBag<T> result = new LinkedBag<T>();
-       //Union code
-       return result;
+      LinkedBag<T> result = new LinkedBag<T>();
+
+      T[] bagArray2 = bag2.toArray(); //Convert to an array
+      for (int i = 0; i < bagArray2.length; i++)
+      {
+         result.add(bagArray2[i]); //Iterate through the array and add to new bag
+      }
+
+      T[] bagArray1 = this.toArray();  //Repeat again with bag2
+      for (int i = 0; i < bagArray1.length; i++)
+      {
+         result.add(bagArray1[i]);
+      }
+
+      return result;
    } 
 
    public BagInterface<T> intersection(BagInterface<T> bag2)
    {
-       LinkedBag<T> result = new LinkedBag<T>();
-       //intersection code
-       return result;
+      LinkedBag<T> result = new LinkedBag<T>(); //create new bag
+
+      T[] bagArray1 = this.toArray();  //convert to arrays
+      T[] bagArray2 = bag2.toArray();
+
+      for (int i = 0; i < bagArray1.length; i++)
+      {
+         for(int j = 0; j < bagArray2.length; j++)
+         {
+             if(bagArray1[i] == bagArray2[j])
+             {
+                 result.add(bagArray1[i]); //add shared entries
+             }
+         }
+      }
+
+      return result;
    } 
 
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
-       LinkedBag<T> result = new LinkedBag<T>();
-       //difference code
-       return result;
+      LinkedBag<T> result = this;
+
+          T[] bagArray1 = this.toArray(); //convert to arrays
+          T[] bagArray2 = bag2.toArray();
+
+          for (int i = 0; i < bagArray1.length; i++)
+          {
+             for(int j = 0; j < bagArray2.length; j++)
+             {
+                 if(bagArray1[i] != bagArray2[j])
+                 {
+                     result.add(bagArray1[i]); //add entries not shared by both arrays
+                 }
+             }
+          }
+
+          return result;
    } 
 
 	private class Node
