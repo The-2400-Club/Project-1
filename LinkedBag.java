@@ -230,24 +230,29 @@ public final class LinkedBag<T> implements BagInterface<T>
 
    public BagInterface<T> difference(BagInterface<T> bag2)
    {
-      LinkedBag<T> result = this;
-
-          T[] bagArray1 = this.toArray(); //convert to arrays
-          T[] bagArray2 = bag2.toArray();
-
-          for (int i = 0; i < bagArray1.length; i++)
-          {
-             for(int j = 0; j < bagArray2.length; j++)
-             {
-                 if(bagArray1[i] != bagArray2[j])
-                 {
-                     result.add(bagArray1[i]); //add entries not shared by both arrays
-                 }
-             }
-          }
-
-          return result;
+      LinkedBag<T> result = new LinkedBag<T>();
+      T[] bag = this.toArray(); //convert to arrays
+      int freq1, freq2, diff;
+        for (int i = 0; i < bag.length; i++)
+        {
+         freq1 = this.getFrequencyOf(bag[i]);
+         freq2 = bag2.getFrequencyOf(bag[i]);
+         if(freq2 == 0) // if 2nd bag does not contain item in bag then add it to result RAB
+         {
+            result.add(bag[i]);
+         }
+         else if(freq1 > freq2) // if num of duplicates in 1st > 2nd then add the item difference times to the result
+         {
+            diff = freq1 - freq2; // calculate the difference
+            for(int j=0; j < diff; j++) // loop so that item is added the right amount of times
+            {
+                result.add(bag[i]);
+            }
+            }
+         }
+     return result;
    } 
+
 
 	private class Node
 	{
