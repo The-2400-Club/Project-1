@@ -241,7 +241,10 @@ public final class LinkedBag<T> implements BagInterface<T>
          {
             if(freq2 == 0) // if 2nd bag does not contain item in bag then add it to result RAB
             {
-             result.add(bag[i]);
+             for(int j = 0; j < freq1; j++) // need to add it the num occurences in bag calling method
+                {
+                    result.add(bag[i]);
+                }
             }
             else if(freq1 > freq2) // if num of duplicates in 1st > 2nd then add the item difference times to the result
             {
