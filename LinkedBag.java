@@ -199,22 +199,32 @@ public final class LinkedBag<T> implements BagInterface<T>
 
    public BagInterface<T> intersection(BagInterface<T> bag2)
    {
-      LinkedBag<T> result = new LinkedBag<T>(); //create new bag
-
+       LinkedBag<T> result = new LinkedBag<T>(); //create new bag
       T[] bagArray1 = this.toArray();  //convert to arrays
-      T[] bagArray2 = bag2.toArray();
-
-      for (int i = 0; i < bagArray1.length; i++)
+      int freq1;
+      int freq2;
+      for(int i =0; i < bagArray1.length;i++)
       {
-         for(int j = 0; j < bagArray2.length; j++)
-         {
-             if(bagArray1[i] == bagArray2[j])
+          freq1 = this.getFrequencyOf(bagArray1[i]);
+          freq2 = bag2.getFrequencyOf(bagArray1[i]);
+        if(freq2 > 0) // ensure item is in both bags requiring it to be added to result
+        {
+           if(freq1 > freq2) // if 2nd bag has less occurences then add item freq2 times to result
+           {
+             for(int j = 0; j<freq2; j++)
              {
-                 result.add(bagArray1[i]); //add shared entries
+                result.add(bagArray1[i]);
              }
-         }
+           }
+           else // if freq1 is <= to freq2 then add item to result that many times
+           {
+             for(int j = 0; j<freq1; j++)
+             {
+                result.add(bagArray1[i]);
+             }
+           }
+        }
       }
-
       return result;
    } 
 
