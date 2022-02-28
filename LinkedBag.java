@@ -197,9 +197,9 @@ public final class LinkedBag<T> implements BagInterface<T>
       return result;
    } 
 
-   public BagInterface<T> intersection(BagInterface<T> bag2)
+  public BagInterface<T> intersection(BagInterface<T> bag2)
    {
-       LinkedBag<T> result = new LinkedBag<T>(); //create new bag
+      LinkedBag<T> result = new LinkedBag<T>(); //create new bag
       T[] bagArray1 = this.toArray();  //convert to arrays
       int freq1;
       int freq2;
@@ -207,7 +207,7 @@ public final class LinkedBag<T> implements BagInterface<T>
       {
           freq1 = this.getFrequencyOf(bagArray1[i]);
           freq2 = bag2.getFrequencyOf(bagArray1[i]);
-        if(freq2 > 0) // ensure item is in both bags requiring it to be added to result
+        if(freq2 > 0 && (result.contains(bagArray1[i]) == false)) // ensure item is in both bags requiring it to be added to result
         {
            if(freq1 > freq2) // if 2nd bag has less occurences then add item freq2 times to result
            {
@@ -237,19 +237,23 @@ public final class LinkedBag<T> implements BagInterface<T>
         {
          freq1 = this.getFrequencyOf(bag[i]);
          freq2 = bag2.getFrequencyOf(bag[i]);
-         if(freq2 == 0) // if 2nd bag does not contain item in bag then add it to result RAB
+         if(result.contains(bag[i])==false)
          {
-            result.add(bag[i]);
-         }
-         else if(freq1 > freq2) // if num of duplicates in 1st > 2nd then add the item difference times to the result
-         {
-            diff = freq1 - freq2; // calculate the difference
-            for(int j=0; j < diff; j++) // loop so that item is added the right amount of times
+            if(freq2 == 0) // if 2nd bag does not contain item in bag then add it to result RAB
             {
-                result.add(bag[i]);
+             result.add(bag[i]);
             }
+            else if(freq1 > freq2) // if num of duplicates in 1st > 2nd then add the item difference times to the result
+            {
+                diff = freq1 - freq2; // calculate the difference
+                for(int j=0; j < diff; j++) // loop so that item is added the right amount of times
+                {
+                 result.add(bag[i]);
+                 }
             }
          }
+        }
+         
      return result;
    } 
 
