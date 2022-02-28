@@ -234,46 +234,51 @@ public final class ResizableArrayBag<T> implements BagInterface<T>
        return result; // return the result since duplicates and order do not matter
    }
 
-   public BagInterface<T> difference(BagInterface<T> bag2)
+    public BagInterface<T> difference(BagInterface<T> bag2)
    {
-       ResizableArrayBag<T> result = new ResizableArrayBag<T>();
-	T[] copy = bag2.toArray();
-	ResizableArrayBag<T> copied = new ResizableArrayBag<>(copy); // Make bag array and bag2 same object type
-	ResizableArrayBag<T> bagCopied = new ResizableArrayBag<>(bag);
-	for(int i = 0; i< bag.length;i++)
-	{
-	  if(bag2.getFrequencyOf(bag[i]) == 0) // if 2nd bag doesn't have item then add it to result
-		{
-			result.add(bag[i]);
-		} 
-	  else if(bagCopied.getFrequencyOf(bag[i]) > copied.getFrequencyOf(copy[i])) // if num of duplicates in 1st > 2nd then add the item difference times to result
-		{
-			int diff = bagCopied.getFrequencyOf(bag[i]) - copied.getFrequencyOf(copy[i]); // calculate the difference
-			for(int j =0; j < diff; j++) // loop so that the item is added to result correct amount of times
-			{
-				result.add(bag[i]);
-			}
-		}
-	}
-	return result;
+       ResizableArrayBag<T> result = new ResizableArrayBag<>();
+       ResizableArrayBag<T> bagCopied = new ResizableArrayBag<>(bag);
+       int freq1,freq2,diff;
+       for(int i = 0; i < bag.length;i++)
+       {
+         if(result.contains(bag[i])== false)
+         {
+            freq1 = bagCopied.getFrequencyOf(bag[i]);
+            freq2 = bag2.getFrequencyOf(bag[i]);
+            if(freq2 == 0) // if 2nd bag does not contain item in bag then add it to result RAB
+            {
+               for(int j = 0; j< freq1; j++)
+               {
+                  result.add(bag[i]);
+               }
+            }
+            else if(freq1 > freq2) // if num of duplicates in 1st > 2nd then add the item difference times to the result
+             {
+               diff = freq1 - freq2; // calculate the difference
+               for(int j=0; j < diff; j++) // loop so that item is added the right amount of times
+               {
+                  result.add(bag[i]);
+               }
+            }
+         }
+       }
+       return result;
    }
 
    public BagInterface<T> intersection(BagInterface<T> bag2)
    {
        ResizableArrayBag<T> result = new ResizableArrayBag<>();
-       T[] copy = bag2.toArray();
-       ResizableArrayBag<T> copied = new ResizableArrayBag<>(copy); //Make bag array and passed in bag2 same object type
        ResizableArrayBag<T> bagCopied = new ResizableArrayBag<>(bag);
        int freq1;
        int freq2;
        for(int i = 0; i < bag.length;i++)
        {
           freq1= bagCopied.getFrequencyOf(bag[i]); // get num of occurrences of current item in bag that calls function
-           freq2= copied.getFrequencyOf(bag[i]); // get num of occurences of current item in bag that is passed in
-          if(freq2 > 0) // ensure item is in both bags requiring it to be added to result
+           freq2= bag2.getFrequencyOf(bag[i]); // get num of occurences of current item in bag that is passed in
+          if(freq2 > 0 && result.contains(bag[i]) == false) // ensure item is in both bags requiring it to be added to result
           {
              if(freq1 > freq2) // if 2nd bag has less occurences then add item freq2 times to result
-             {
+             { 
                for(int j = 0; j<freq2; j++)
                {
                   result.add(bag[i]);
