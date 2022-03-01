@@ -1,5 +1,6 @@
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JUnitTest
 {
@@ -11,13 +12,16 @@ public class JUnitTest
         BagInterface<String> bag1 = new ResizableArrayBag<>(3);
         BagInterface<String> bag2 = new ResizableArrayBag<>(4);
         BagInterface<String> bag3 = new ResizableArrayBag<>(7);
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("b");
         bag2.add("b");
         bag2.add("d");
         bag2.add("e");
+        
         bag3.add("a");
         bag3.add("b");
         bag3.add("c");
@@ -26,7 +30,7 @@ public class JUnitTest
         bag3.add("d");
         bag3.add("e");
 
-        assertEquals(bag3, bag1.union(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.union(bag2).toArray());
     }
 
     @Test   //Test2
@@ -36,7 +40,7 @@ public class JUnitTest
         BagInterface<String> bag2 = new ResizableArrayBag<>(0);
         BagInterface<String> bag3 = new ResizableArrayBag<>(0);
 
-        assertEquals(bag3, bag1.union(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.union(bag2).toArray());
     }
 
     @Test   //Test3
@@ -45,12 +49,15 @@ public class JUnitTest
         BagInterface<String> bag1 = new ResizableArrayBag<>(3);
         BagInterface<String> bag2 = new ResizableArrayBag<>(3);
         BagInterface<String> bag3 = new ResizableArrayBag<>(6);
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("a");
         bag2.add("b");
         bag2.add("c");
+        
         bag3.add("a");
         bag3.add("b");
         bag3.add("c");
@@ -58,7 +65,7 @@ public class JUnitTest
         bag3.add("b");
         bag3.add("c");
 
-        assertEquals(bag3, bag1.union(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.union(bag2).toArray());
     }
 
     @Test   //Test4
@@ -67,16 +74,19 @@ public class JUnitTest
         BagInterface<String> bag1 = new ResizableArrayBag<>(3);
         BagInterface<String> bag2 = new ResizableArrayBag<>(4);
         BagInterface<String> bag3 = new ResizableArrayBag<>(7);
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("b");
         bag2.add("b");
         bag2.add("d");
         bag2.add("e");
+        
         bag3.add("b");
 
-        assertEquals(bag3, bag1.intersection(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.intersection(bag2).toArray());
     }
 
     @Test   //Test5
@@ -86,7 +96,7 @@ public class JUnitTest
         BagInterface<String> bag2 = new ResizableArrayBag<>(0);
         BagInterface<String> bag3 = new ResizableArrayBag<>(0);
 
-        assertEquals(bag3, bag1.intersection(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.intersection(bag2).toArray());
     }
 
     @Test   //Test6
@@ -95,17 +105,20 @@ public class JUnitTest
         BagInterface<String> bag1 = new ResizableArrayBag<>(3);
         BagInterface<String> bag2 = new ResizableArrayBag<>(3);
         BagInterface<String> bag3 = new ResizableArrayBag<>(3);
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("a");
         bag2.add("b");
         bag2.add("c");
+        
         bag3.add("a");
         bag3.add("b");
         bag3.add("c");
 
-        assertEquals(bag3, bag1.intersection(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.intersection(bag2).toArray());
     }
 
     @Test   //Test7
@@ -114,17 +127,20 @@ public class JUnitTest
         BagInterface<String> bag1 = new ResizableArrayBag<>(3);
         BagInterface<String> bag2 = new ResizableArrayBag<>(4);
         BagInterface<String> bag3 = new ResizableArrayBag<>(2);
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("b");
         bag2.add("b");
         bag2.add("d");
         bag2.add("e");
+        
         bag3.add("a");
         bag3.add("c");
 
-        assertEquals(bag3, bag1.difference(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.difference(bag2).toArray());
     }
 
     @Test   //Test8
@@ -134,7 +150,7 @@ public class JUnitTest
         BagInterface<String> bag2 = new ResizableArrayBag<>(0);
         BagInterface<String> bag3 = new ResizableArrayBag<>(0);
 
-        assertEquals(bag3, bag1.difference(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.difference(bag2).toArray());
     }
 
     @Test   //Test9
@@ -143,14 +159,16 @@ public class JUnitTest
         BagInterface<String> bag1 = new ResizableArrayBag<>(3);
         BagInterface<String> bag2 = new ResizableArrayBag<>(3);
         BagInterface<String> bag3 = new ResizableArrayBag<>(0);
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("a");
         bag2.add("b");
         bag2.add("c");
 
-        assertEquals(bag3, bag1.difference(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.difference(bag2).toArray());
     }
 
     //Tests for LinkedBag
@@ -161,22 +179,25 @@ public class JUnitTest
         BagInterface<String> bag1 = new LinkedBag<>();
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("b");
         bag2.add("b");
         bag2.add("d");
         bag2.add("e");
-        bag3.add("a");
+        
+        bag3.add("e");
+        bag3.add("d");
+        bag3.add("b");
         bag3.add("b");
         bag3.add("c");
         bag3.add("b");
-        bag3.add("b");
-        bag3.add("d");
-        bag3.add("e");
+        bag3.add("a");
 
-        assertEquals(bag3, bag1.union(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.union(bag2).toArray());
     }
 
     @Test   //Test11
@@ -186,7 +207,7 @@ public class JUnitTest
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
 
-        assertEquals(bag3, bag1.union(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.union(bag2).toArray());
     }
 
     @Test   //Test12
@@ -195,20 +216,23 @@ public class JUnitTest
         BagInterface<String> bag1 = new LinkedBag<>();
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("a");
         bag2.add("b");
         bag2.add("c");
-        bag3.add("a");
-        bag3.add("b");
+        
         bag3.add("c");
-        bag3.add("a");
         bag3.add("b");
+        bag3.add("a");
         bag3.add("c");
+        bag3.add("b");
+        bag3.add("a");
 
-        assertEquals(bag3, bag1.union(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.union(bag2).toArray());
     }
 
     @Test   //Test13
@@ -217,16 +241,19 @@ public class JUnitTest
         BagInterface<String> bag1 = new LinkedBag<>();
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("b");
         bag2.add("b");
         bag2.add("d");
         bag2.add("e");
+        
         bag3.add("b");
 
-        assertEquals(bag3, bag1.intersection(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.intersection(bag2).toArray());
     }
 
     @Test   //Test14
@@ -236,7 +263,7 @@ public class JUnitTest
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
 
-        assertEquals(bag3, bag1.intersection(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.intersection(bag2).toArray());
     }
 
     @Test   //Test15
@@ -245,17 +272,20 @@ public class JUnitTest
         BagInterface<String> bag1 = new LinkedBag<>();
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("a");
         bag2.add("b");
         bag2.add("c");
-        bag3.add("a");
-        bag3.add("b");
+        
         bag3.add("c");
+        bag3.add("b");
+        bag3.add("a");
 
-        assertEquals(bag3, bag1.intersection(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.intersection(bag2).toArray());
     }
 
     @Test   //Test16
@@ -264,17 +294,20 @@ public class JUnitTest
         BagInterface<String> bag1 = new LinkedBag<>();
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("b");
         bag2.add("b");
         bag2.add("d");
         bag2.add("e");
-        bag3.add("a");
+        
         bag3.add("c");
+        bag3.add("a");
 
-        assertEquals(bag3, bag1.difference(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.difference(bag2).toArray());
     }
 
     @Test   //Test17
@@ -284,7 +317,7 @@ public class JUnitTest
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
 
-        assertEquals(bag3, bag1.difference(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.difference(bag2).toArray());
     }
 
     @Test   //Test18
@@ -293,13 +326,15 @@ public class JUnitTest
         BagInterface<String> bag1 = new LinkedBag<>();
         BagInterface<String> bag2 = new LinkedBag<>();
         BagInterface<String> bag3 = new LinkedBag<>();
+        
         bag1.add("a");
         bag1.add("b");
         bag1.add("c");
+        
         bag2.add("a");
         bag2.add("b");
         bag2.add("c");
 
-        assertEquals(bag3, bag1.difference(bag2));
+        assertArrayEquals(bag3.toArray(), bag1.difference(bag2).toArray());
     }
 }
