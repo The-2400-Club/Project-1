@@ -2,7 +2,7 @@
 Names: Xavier Cisneros, James Contreras, Jonathan Anz
 
 Contributions
-Xavier Cisneros: Coded the union, intersection, difference methods for ResizableArrayBag and LinkedBag classes. Also finished the LinkedBag class's other methods.
+Xavier Cisneros: Coded the union, intersection, difference methods for ResizableArrayBag and intersection, difference methods for LinkedBag. Also finished the LinkedBag class's other methods. Added ResizableArrayBagTest class.
 
 James Contreras: JunitTest class and JavaDoc.
 
